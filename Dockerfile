@@ -5,7 +5,8 @@ RUN     rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-
 # Install Node.js and npm
 RUN     yum install -y npm
 # Install mailx for sending out email alerts
-RUN     yum intall mailx
+RUN     yum install -y mailx
+RUN     yum install -y sendmail
 # Bundle app source
 COPY . /src
 # Install app dependencies
