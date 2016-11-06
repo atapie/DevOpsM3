@@ -63,8 +63,8 @@ app.get('/meow', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-	res.status(500);
-	res.send("Hello from M3! This is the testing version. Should fail!!!");
+	//res.status(500);
+	res.send("Hello from M3! This is the testing version.");
 });
 
 // HTTP SERVER
