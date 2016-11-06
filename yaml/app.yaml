@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: m3
+  labels:
+    app: m3
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: m3
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: m3
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: m3
+        track: stable
+    spec:
+      containers:
+      - name: m3-stable
+        image: atapie/devopsm3:stable
+        ports:
+        - containerPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: m3-canary
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: m3
+        track: canary
+    spec:
+      containers:
+      - name: m3-canary
+        image: atapie/devopsm3:canary
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+        ports:
+        - containerPort: 8080
+
