@@ -40,13 +40,13 @@ spec:
 ### Feature flags
 The feature flag will toggle the set function:
 
-Before feature flag: 
+#### Before feature flag: 
 ![](screenshots/set.png)
 
-Use feature flag to toggle set function:
+#### Use feature flag to toggle set function:
 ![](screenshots/feature.png)
 
-Set function has been toggle and disabled in this case:
+#### Set function has been toggle and disabled in this case:
 ![](screenshots/setAfterFeature.png)
 
 ### Canary release
