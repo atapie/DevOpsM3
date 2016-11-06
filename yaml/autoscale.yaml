@@ -4,7 +4,7 @@ metadata:
   name: m3-scaler
 spec:
   scaleTargetRef:
-    kind: Deployment
+    kind: ReplicationController
     name: m3
   minReplicas: 1
   maxReplicas: 10
