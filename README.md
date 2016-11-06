@@ -56,6 +56,10 @@ livenessProbe:
   timeoutSeconds: 1
 ~~~
 
+Finally, each RC is updated using a corresponding docker image from DockerHub, which in turn is built based on the push to GitHub branches:
+  - Push to master branch -> build devopsm3:stable -> update m3 RC
+  - Push to canary branch -> build devopsm3:canary -> update m3-canary RC
+
 ### REFERENCES
 
 #### Kubernetes example
