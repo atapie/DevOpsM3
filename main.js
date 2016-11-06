@@ -63,7 +63,7 @@ app.get('/meow', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-	res.send("Hello from M3! This is the stable version.");
+	res.send("Hello from M3! This is the stable version...");
 });
 
 // HTTP SERVER

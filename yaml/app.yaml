@@ -27,6 +27,7 @@ spec:
       containers:
       - name: m3-stable
         image: atapie/devopsm3:stable
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 ---
@@ -45,6 +46,7 @@ spec:
       containers:
       - name: m3-canary
         image: atapie/devopsm3:canary
+        imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /
