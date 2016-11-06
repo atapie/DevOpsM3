@@ -5,7 +5,7 @@ var fs      = require('fs');
 var app = express();
 
 // REDIS
-var client = redis.createClient(6379, 'redis', {});
+var client = redis.createClient(6379, '127.0.0.1', {});
 
 // Add hook to make it easier to get all visited URLS.
 app.use(function(req, res, next)
@@ -22,6 +22,20 @@ app.get('/get', function(req, res) {
   client.get(recentKey, function(err,value) { 
     res.send(value)
   });
+})
+
+var featureFlag = "featureFlag";
+app.get('/feature', function(req, res) {
+  client.lpop(featureFlag, function(err, reply) {
+    if ( reply == "true") {
+      client.lpush(featureFlag, false)
+      res.send("Feature for set disabled !")
+    }
+    else {
+      client.lpush(featureFlag, true)
+      res.send("Feature for set enabled !")
+    }
+  })
 })
 
 
