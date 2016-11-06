@@ -17,26 +17,28 @@ app.use(function(req, res, next)
 	next(); // Passing the request to the next handler in the stack.
 });
 
-app.get('/set', function(req, res) {
-  var key = 'testKey';
-  var msg = 'this message will self-destruct in 10 seconds';
-  client.setex(key, 10, msg);
-
-  client.lpush('recent', '/set');
-  client.ltrim('recent', 0, 99);
-
-  res.send('ok');
-});
-
+var recentKey = "recentKey";
 app.get('/get', function(req, res) {
-  var key = 'testKey';
-  client.get(key, function(err, value) {
-    res.send(value);
+  client.get(recentKey, function(err,value) { 
+    res.send(value)
   });
+})
 
-  client.lpush('recent', '/get');
-  client.ltrim('recent', 0, 99);
-});
+
+var featureFlag = "featureFlag";
+app.get('/set', function(req, res) {
+  client.lrange(featureFlag, 0, 0, function(err, reply) {
+    if (reply == "true") {
+      client.set(recentKey, 'this message will self-destruct in 10 seconds');
+      client.expire(recentKey, 10);
+      res.send('key will expire in 10 seconds!')
+    }
+    else {
+      res.send('Feature flag has been toggled, you cannot set a key !')
+    }
+  })
+  
+})
 
 app.get('/recent', function(req, res) {
   client.lrange('recent', 0, 99, function(err, value) {
