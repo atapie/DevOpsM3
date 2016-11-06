@@ -38,7 +38,16 @@ spec:
 ![](screenshots/autoscale.png)
 
 ### Feature flags
-TODO
+The feature flag will toggle the set function:
+
+Before feature flag: 
+![](screenshots/set.png)
+
+Use feature flag to toggle set function:
+![](screenshots/feature.png)
+
+Set function has been toggle and disabled in this case:
+![](screenshots/setAfterFeature.png)
 
 ### Canary release
 For canary release, the same external service of the app matches two different replication controllers (same app label but different track labels). The load balancing depends on how many replicas each RC has. In this milestone we configure the stable RC to autoscale between 1 to 10 replicas while the canary RC only has 1 replica.
