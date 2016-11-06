@@ -17,7 +17,9 @@ function handleRequest(request, response)
                         var tag = post.push_data.tag;
                         var repo = post.repository.repo_name;
                         var image = repo + ':' + tag;
-                        var cmd = 'kubectl rolling-update m3 --image='+image+' --image-pull-policy=Always';
+			var rc = 'm3';
+			if(tag == 'canary') rc = 'm3-canary'
+                        var cmd = 'kubectl rolling-update '+rc+' --image='+image+' --image-pull-policy=Always';
                         console.log('Executing: ' + cmd);
                         var child = exec(cmd, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr)
                         {
