@@ -34,21 +34,30 @@ function memUsage(){
 
 function sendEmail(cpuUs,memUs){
   var textBody = "";
-  if(cpuUs < 20 ){
+  if(cpuUs > 80 ){
     textBody += "CPU overloaded, current CPU usage:" + cpuUs + "% \n";
   }
   if(memUs < 100 ){
     textBody += "Available memory is too low, current free memory:" + Math.round(memUs) + "MB \n"
   }
   if(textBody!=""){
-    var cmdMail = 'echo "'+ textBody + '"| mail -s "Alert" glingna@ncsu.edu';
-    exec(cmdMail, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr){});
+    var cmdMail = 'echo "alert" | sendmail glingna@ncsu.edu';
+    exec(cmdMail, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr){
+	if(error){
+	   console.log(error);
+	}
+    });
   }
 }
 
 //Grab first CPU Measure
 var startMeasure = cpuAverage();
-
+var config_mail = "sh /home/emailscript.sh"
+exec(config_mail, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr){
+	console.log(error);
+	console.log(stdout);
+	console.log(stderr);
+})
 //Set delay for second Measure
 setInterval(function() { 
 
@@ -67,4 +76,3 @@ setInterval(function() {
   console.log(percentageCPU + "% CPU Usage.");
   console.log(Math.round(freemem) + "MB Free Memory.");
 }, 10000);
-
