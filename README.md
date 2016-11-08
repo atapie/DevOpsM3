@@ -40,7 +40,7 @@ spec:
 ### Feature flags
 The feature flag will toggle the set function:
 
-#### Before feature flag: 
+#### Before feature flag:
 ![](screenshots/set.png)
 
 #### Use feature flag to toggle set function:
@@ -64,6 +64,10 @@ livenessProbe:
   initialDelaySeconds: 15
   timeoutSeconds: 1
 ~~~
+
+Continuous restarts when canary version returns HTTP 500 code:
+
+![](screenshots/restart.png)
 
 Finally, each RC is updated using a corresponding docker image from DockerHub, which in turn is built based on the push to GitHub branches:
   - Push to master branch -> build devopsm3:stable -> update m3 RC
