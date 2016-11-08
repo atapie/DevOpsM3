@@ -33,7 +33,7 @@ function memUsage(){
 
 
 function sendEmail(cpuUs,memUs){
-  var textBody = "";
+  var textBody = " ";
   if(cpuUs > 80 ){
     textBody += "CPU overloaded, current CPU usage:" + cpuUs + "% \n";
   }
@@ -59,7 +59,7 @@ exec(config_mail, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr){
 	console.log(stderr);
 })
 //Set delay for second Measure
-setInterval(function() { 
+setTimeout(function() { 
 
   //Grab second Measure
   var endMeasure = cpuAverage(); 
