@@ -36,7 +36,7 @@ function memUsage(){
 
 
 function sendEmail(cpuUs,memUs){
-  var textBody = "a";
+  var textBody = "";
   if(cpuUs > 80 ){
     textBody += "CPU overloaded, current CPU usage:" + cpuUs + "% \n";
   }
@@ -45,7 +45,7 @@ function sendEmail(cpuUs,memUs){
   }
   if(textBody!=""){
     console.log("Sending the email");
-    var cmdMail = 'echo "alert" | sendmail glingna@ncsu.edu';
+    var cmdMail = 'echo "subject: Alert \n' + textBody +'"' +'| sendmail glingna@ncsu.edu';
     exec(cmdMail, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr){
      if(error){
        console.log(error);
