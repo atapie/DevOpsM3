@@ -59,7 +59,7 @@ exec(config_mail, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr){
 	console.log(stderr);
 })
 //Set delay for second Measure
-setTimeout(function() { 
+setInterval(function() { 
 
   //Grab second Measure
   var endMeasure = cpuAverage(); 
