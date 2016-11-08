@@ -23,7 +23,7 @@ Email sent from the container:
 
 Metric being monitored:
 
-![](screenshots/Metrics.png)
+![](screenshots/Metric.png)
 
 ### Autoscale
 Every service in Kubernetes can be scaled automatically. For this milestone we configure autoscale for stable branch replication controller based on CPU usage. See [yaml/autoscale.yaml](yaml/autoscale.yaml). However, since the CPU usage is very low, the RC starts with 3 replicas but always scales down to 1 replica (min=1, max=10).
