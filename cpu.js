@@ -43,13 +43,13 @@ function sendEmail(cpuUs,memUs){
   if(textBody!=""){
     console.log("Sending the email");
     var cmdMail = 'echo "alert" | sendmail glingna@ncsu.edu';
-    exec(cmdMail, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr){
-	   if(error){
-	     console.log(error);
-	     console.log(stdout);
-       console.log(stderr);
-     }
-    });
+    // exec(cmdMail, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr){
+	   // if(error){
+	   //   console.log(error);
+	   //   console.log(stdout);
+    //    console.log(stderr);
+    //  }
+    // });
   }
 }
 
