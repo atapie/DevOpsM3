@@ -33,7 +33,7 @@ function memUsage(){
 
 
 function sendEmail(cpuUs,memUs){
-  var textBody = " ";
+  var textBody = "a";
   if(cpuUs > 80 ){
     textBody += "CPU overloaded, current CPU usage:" + cpuUs + "% \n";
   }
@@ -41,11 +41,14 @@ function sendEmail(cpuUs,memUs){
     textBody += "Available memory is too low, current free memory:" + Math.round(memUs) + "MB \n"
   }
   if(textBody!=""){
+    console.log("Sending the email");
     var cmdMail = 'echo "alert" | sendmail glingna@ncsu.edu';
     exec(cmdMail, {maxBuffer: 1024 * 5000}, function(error, stdout, stderr){
-	if(error){
-	   console.log(error);
-	}
+	   if(error){
+	     console.log(error);
+	     console.log(stdout);
+       console.log(stderr);
+     }
     });
   }
 }
