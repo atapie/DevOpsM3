@@ -16,7 +16,7 @@ We use Kubernetes on AWS to manage the production environment. The config script
   - Redis: using Kubernetes internal service and replica set (newer version of replication controller)
 
 ### Alerts
-We use a nodejs code that is running in background to minitor CPU and memory usage. This program will be deployed in every container. Once a predetermined rule is triggerred, i.e. CPU usage is greater than 70% or available memory is less than 100MB, an email will be sent out from the corresponding instance.
+We use a node.js code that is running in background to minitor CPU and memory usage. This program will be deployed in every container. Once a predetermined rule is triggerred, i.e. CPU usage is greater than 70% or available memory is less than 100MB, an email will be sent out from the corresponding instance. See [cpu.js](cpu.js).
 
 ### Autoscale
 Every service in Kubernetes can be scaled automatically. For this milestone we configure autoscale for stable branch replication controller based on CPU usage. See [yaml/autoscale.yaml](yaml/autoscale.yaml). However, since the CPU usage is very low, the RC starts with 3 replicas but always scales down to 1 replica (min=1, max=10).
@@ -51,6 +51,9 @@ The feature flag will toggle the set function:
 
 ### Canary release
 For canary release, the same external service of the app matches two different replication controllers (same app label but different track labels). The load balancing depends on how many replicas each RC has. In this milestone we configure the stable RC to autoscale between 1 to 10 replicas while the canary RC only has 1 replica.
+
+![](screenshots/stable.png)
+![](screenshots/canary.png)
 
 The canary part also has a period liveness check, if there is an error (e.g. HTTP code 500) then the container is restarted.
   - If there is a serious bug (always error) then the canary container is restarted continuously and hence it's inaccessible and requires a rollback to a previous version.
