@@ -16,8 +16,11 @@ We use Kubernetes on AWS to manage the production environment. The config script
   - Redis: using Kubernetes internal service and replica set (newer version of replication controller)
 
 ### Alerts
-We use a node.js code that is running in background to minitor CPU and memory usage. This program will be deployed in every container. Once a predetermined rule is triggerred, i.e. CPU usage is greater than 70% or available memory is less than 100MB, an email will be sent out from the corresponding instance. See [cpu.js](cpu.js).
-
+We use a node.js code that is running in background to minitor CPU and memory usage. This program will be deployed in every container. Once a predetermined rule is triggerred, i.e. CPU usage is greater than 70% or available memory is less than 100MB, an email will be sent out from the corresponding instance.
+Email sent from the container:
+![](Email.png)
+Metric being monitored:
+![](Metrics.png)
 ### Autoscale
 Every service in Kubernetes can be scaled automatically. For this milestone we configure autoscale for stable branch replication controller based on CPU usage. See [yaml/autoscale.yaml](yaml/autoscale.yaml). However, since the CPU usage is very low, the RC starts with 3 replicas but always scales down to 1 replica (min=1, max=10).
 
